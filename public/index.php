@@ -1,5 +1,5 @@
 <?php
-require_once('../application.php');
+require_once(dirname(dirname(realpath(__FILE__))) . DIRECTORY_SEPARATOR . 'application.php');
 
 /** Zend_Application */
 require_once 'Zend/Application.php';
