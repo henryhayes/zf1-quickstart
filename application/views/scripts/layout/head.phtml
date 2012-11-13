@@ -1,0 +1,70 @@
+<?php
+    /**
+     * HeadMeta information.
+     */
+    $this->headMeta()->setIndent(4);
+    echo $this->headMeta();
+?>
+
+<?php
+    /**
+     * Initialise the JQuery and javascript.
+     */
+    $this->headScript()->appendFile($this->serverUrl('/javascript/global.js'), 'text/javascript');
+    // We prepend these as this ensures that they are always loaded first.
+    //$this->headScript()->prependFile('https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js', 'text/javascript');
+
+    $this->headScript()->setIndent(4);
+    echo $this->headScript();
+?>
+
+
+<?php
+    /**
+     * Here are the css files.
+     */
+    //$this->headLink()->appendStylesheet('http://yui.yahooapis.com/3.6.0/build/cssgrids/grids-min.css', 'screen');
+    $this->headLink()->appendStylesheet($this->serverUrl('/css/global.css'), 'screen');
+    // We prepend these as this ensures that they are always loaded first.
+    //$this->headLink()->prependStylesheet('http://yui.yahooapis.com/3.6.0/build/cssbase/cssbase-min.css', '');
+    //$this->headLink()->prependStylesheet('http://yui.yahooapis.com/3.6.0/build/cssreset/cssreset-min.css', '');
+    $this->headLink()->appendStylesheet($this->serverUrl('/css/fix/ie7minus.css'), 'screen', 'lte IE 8');
+
+    /**
+     * Favicons - this is IE and Firefox friendly to do it in this order.
+     */
+    $this->headLink()->headLink(array('rel'=>'icon', 'href'=>$this->serverUrl('/favicon.ico'), 'type'=>'image/x-icon'));
+    $this->headLink()->headLink(array('rel'=>'shortcut icon', 'href'=>$this->serverUrl('/favicon.ico'), 'type'=>'image/x-icon'));
+
+    /**
+     * Set the indent and render to the view.
+     */
+    $this->headLink()->setIndent(4);
+    echo $this->headLink();
+?>
+
+
+<?php if ('production' == APPLICATION_ENV): ?>
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_setDomainName', 'none']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
+<?php endif; ?>
+
+
+<?php
+    /**
+     * Meta title is rendered here.
+     */
+    $this->headTitle()->setIndent(4);
+    echo $this->headTitle();
+?>

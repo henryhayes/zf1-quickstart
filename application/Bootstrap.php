@@ -60,7 +60,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     public function _initHelpers()
     {
-        Zend_Controller_Action_HelperBroker::addPath(APPLICATION_PATH . DS . 'helpers', 'WlpApi_Helper');
+        Zend_Controller_Action_HelperBroker::addPath(
+            APPLICATION_PATH . DIRECTORY_SEPARATOR . 'helpers', 'WlpApi_Helper'
+        );
     }
 }
 

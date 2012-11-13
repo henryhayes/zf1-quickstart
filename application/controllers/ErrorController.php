@@ -1,6 +1,11 @@
 <?php
 
-class ErrorController extends Zend_Controller_Action
+/**
+ * @see AbstractController
+ */
+require_once(realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'AbstractController.php');
+
+class ErrorController extends AbstractController
 {
     public function errorAction()
     {
@@ -33,15 +38,5 @@ class ErrorController extends Zend_Controller_Action
         }
 
         $this->view->request   = $errors->request;
-    }
-
-    public function getLog()
-    {
-        $bootstrap = $this->getInvokeArg('bootstrap');
-        if (!$bootstrap->hasPluginResource('Log')) {
-            return false;
-        }
-        $log = $bootstrap->getResource('Log');
-        return $log;
     }
 }
