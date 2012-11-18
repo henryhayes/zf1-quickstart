@@ -54,6 +54,9 @@ class MultiFormController extends AbstractController
 
         if (!$this->formIsValid()) {
 
+            /* print_r($this->getSessionNamespace());
+            die(print_r($this->getForm()->getValues())); */
+
             $form = $this->getNextSubForm();
             $this->view->form = $this->getForm()->prepareSubForm($form);
             return $this->render('index');
@@ -188,7 +191,7 @@ class MultiFormController extends AbstractController
      *
      * @return bool
      */
-    public function formIsValid()
+    /* public function formIsValid()
     {
         $data = array();
         foreach ($this->getSessionNamespace() as $key => $info) {
@@ -197,5 +200,18 @@ class MultiFormController extends AbstractController
         }
 
         return $this->getForm()->isValid($data);
+    } */
+
+    public function formIsValid()
+    {
+        $stored = count($this->getStoredForms());
+        $potential = count($this->getPotentialForms());
+
+        if ($stored == $potential) {
+            return true;
+        }
+
+        return false;
+
     }
 }
