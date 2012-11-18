@@ -6,5 +6,8 @@ require_once(realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'AbstractContro
 
 class FormController extends AbstractController
 {
-
+    public function multiAction()
+    {
+        echo 'Milti-form';
+    }
 }
