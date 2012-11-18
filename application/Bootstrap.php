@@ -9,6 +9,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     protected $_appNamespace = 'Application';
 
+    /**
+     * Setup the view (presentation) tier's default document type. This does
+     * more that just setup the doctype. It also tells the view how to render
+     * certain HTML entities. Very important.
+     */
     protected function _initDoctype()
     {
         $this->bootstrap('view');
@@ -27,7 +32,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             array(
                 'mappers' => array(
                     'namespace' => 'Model_Collection',
-                    'path'      => 'models/colections',
+                    'path'      => 'models' . DIRECTORY_SEPARATOR . 'colections',
                 ),
                 'adapters' => array(
                     'namespace' => 'Adapter',
@@ -37,9 +42,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                     'namespace' => 'View',
                     'path'      => 'view',
                 ),
-                'controller' => array(
-                    'namespace' => 'Controller',
-                    'path'      => 'controller',
+                'frontcontroller' => array(
+                    'namespace' => 'FrontController',
+                    'path'      => 'frontcontroller',
                 ),
                 'filters' => array(
                     'namespace' => 'Filter',
@@ -51,6 +56,23 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 ),
             )
         );
+    }
+
+    /**
+     * Initialise Session
+     */
+    protected function _initSession()
+    {
+        Zend_Session::setOptions(
+            array(
+                'strict'        => false,
+                'name'          => strtolower($this->_appNamespace) . '_myapplication',
+                'cookie_secure' => false,
+                'save_path'     => SESSION_PATH,
+            )
+        );
+
+        Zend_Session::start();
     }
 
     /**
