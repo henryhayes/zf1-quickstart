@@ -17,3 +17,50 @@ define('LOG_PATH', VAR_PATH  . DS . 'log');
 define('SESSION_PATH', VAR_PATH . DS . 'session');
 
 set_include_path(implode(PS, array(get_include_path(), LIBRARY_PATH)));
+
+/**
+ * Here, we run the initial checks for the application.
+ */
+Initial_Check::paths();
+
+/**
+ * Initial check class
+ */
+class Initial_Check
+{
+    public static function paths()
+    {
+        $pathNeedWrite = array(
+            VAR_PATH,
+            TMP_PATH,
+            CACHE_PATH,
+            LOG_PATH,
+            SESSION_PATH,
+        );
+
+        $errorPaths = array();
+        foreach ($pathNeedWrite as $path) {
+            if (!is_writable($path)) {
+                $errorPaths[] = $path;
+            }
+        }
+
+        if (isset($errorPaths) && count($errorPaths) > 0) {
+            $command = 'Fatal Error: some paths were not writeable:' . PHP_EOL;
+            $linux = '';
+            foreach ($errorPaths as $path) {
+                $command .= $path . PHP_EOL;
+                $linux .= 'chmod 777 ' . $path . PHP_EOL;
+            }
+        }
+        if (isset($command)) {
+            header('Content-type: text/plain');
+            echo $command . PHP_EOL;
+            if ('WIN' != strtoupper(PHP_OS)) {
+                echo 'In linux, you could fix this by running the following commands:' . PHP_EOL;
+                echo $linux;
+            }
+            exit(255);
+        }
+    }
+}
